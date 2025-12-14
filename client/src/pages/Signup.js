@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
-const API_BASE_URL = process.env.REACT_APP_API_URL;
+const API_BASE_URL =
+  process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+
+
 
 const Signup = () => {
   const navigate = useNavigate();

@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
-
+const API_BASE_URL =
+  process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -13,24 +14,23 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
-  const API_BASE_URL = process.env.REACT_APP_API_URL;
   const signin = async (email, password) => {
-    const res = await fetch(`${API_BASE_URL}/auth/signin`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify({ email, password }),
-    });
+  const res = await fetch(`${API_BASE_URL}/auth/signin`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    body: JSON.stringify({ email, password }),
+  });
 
-    if (!res.ok) {
-      const data = await res.json().catch(() => ({}));
-      throw new Error(data.error || "Signin failed");
-    }
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    throw new Error(data.error || "Signin failed");
+  }
 
-    const data = await res.json();
-    localStorage.setItem("user", JSON.stringify(data.user));
-    setUser(data.user);
-  };
+  const data = await res.json();
+  setUser(data.user);
+};
+
 
   const signout = async () => {
     await fetch(`${API_BASE_URL}/auth/signout`, {
