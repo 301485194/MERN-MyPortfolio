@@ -1,8 +1,7 @@
-// server/routes/auth.routes.js
-import { Router } from "express";
+import express from "express";
 import authCtrl from "../controllers/auth.controller.js";
 
-const router = Router();
+const router = express.Router();
 
 router.post("/signup", authCtrl.signup);
 router.post("/signin", authCtrl.signin);
