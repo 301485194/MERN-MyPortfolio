@@ -13,8 +13,9 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
   const signin = async (email, password) => {
-    const res = await fetch("http://localhost:5000/auth/signin", {
+    const res = await fetch(`${API_BASE_URL}/auth/signin`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -32,7 +33,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const signout = async () => {
-    await fetch("http://localhost:5000/auth/signout", {
+    await fetch(`${API_BASE_URL}/auth/signout`, {
       method: "GET",
       credentials: "include",
     });
